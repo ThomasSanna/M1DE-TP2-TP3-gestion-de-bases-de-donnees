@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schemaFactory revisionNumber="70">
+    <schemaDefinition group="tp3" loadOnStartup="false" name="DWTP3">
+        <activateIncrementalLoad>false</activateIncrementalLoad>
+        <autoCleanUpTableColumns>false</autoCleanUpTableColumns>
+        <colors enabled="false"/>
+        <cube id="ad10e1ea-6fdb-4d7e-bb0a-d0b2d86f6885" name="cubeTP3">
+            <defaultFacts measureGroupName="measures" partitioningType="NONE" uuid="27556bf1-a7e2-4492-910d-13c95c1910ca" aggregateDataSourceFacts="false" dataTableId="18b46154-8d6a-42a8-b463-f7ced72af15d" newGeneration="true" unresolvedRowsBehavior="ERROR">
+                <links dimensionId="3f2087c0-6cf6-4e4b-ad91-93ed9ae8d30d">
+                    <viewLinks type="LAST_LEVEL">
+                        <toColumns name="fk_temps"/>
+                    </viewLinks>
+                </links>
+                <links dimensionId="8243211d-9d49-457a-ae0c-abbe294edc76">
+                    <viewLinks type="LAST_LEVEL">
+                        <toColumns name="fk_structure"/>
+                    </viewLinks>
+                </links>
+                <links dimensionId="16ac0a13-d291-4147-9858-5edb4f2bbb16">
+                    <viewLinks type="LAST_LEVEL">
+                        <toColumns name="fk_discipline"/>
+                    </viewLinks>
+                </links>
+                <links dimensionId="e9fdad2d-1cad-4b91-a724-aeb66f3e0c56">
+                    <viewLinks type="NOT_MAPPED"/>
+                </links>
+                <measure uuid="247a19d9-139b-4c0a-8209-a79b95493e8b" name="Montant Total" aggregationType="SUM">
+                    <dataColumn name="montant_contrat"/>
+                    <cellProperties>FORMAT_STRING="Standard"</cellProperties>
+                </measure>
+                <measure uuid="d3acdd4e-1a2c-4a3e-b4c2-6794b6f45b80" name="Duree Moyenne" aggregationType="AVG_LEAVES">
+                    <dataColumn name="duree_mois"/>
+                    <cellProperties>FORMAT_STRING="Standard"</cellProperties>
+                </measure>
+                <measure uuid="aa386b15-1b46-45f3-b3ae-909c12ae44e8" name="Nombre Contrats" aggregationType="SUM">
+                    <dataColumn name="nombre_contrats"/>
+                    <cellProperties>FORMAT_STRING="Standard"</cellProperties>
+                </measure>
+                <rowFactAggregationType>ADD_ROW</rowFactAggregationType>
+            </defaultFacts>
+        </cube>
+        <jdbcDS dbName="DWTP3" dontAddQuotes="false" driverType="POSTGRES" password="☔96g0e6PiSMKuN0rQ8l4zVPGTIrg2SNaeweSuI7awZHCqYzq2" portNumber="5432" serverName="serveurPostgres" user="postgres" disableReadOnlyMode="false" includeSynonyms="false" name="DWTP3">
+            <jdbcDatatable fetchSize="1000" tableName="public.dim_discipline" rowLimit="-1" id="f6966955-b143-42a1-8f45-86525f340eb0">
+                <column name="id_discipline" tableType="INTEGER" type="INTEGER" selected="true"/>
+                <column name="libelle_discipline" tableType="VARCHAR(255)" type="STRING" selected="true"/>
+            </jdbcDatatable>
+            <jdbcDatatable fetchSize="1000" tableName="public.dim_financeur" rowLimit="-1" id="af4b7710-7777-4fd1-b243-b9f1d0fc6be1">
+                <column name="id_financeur" tableType="INTEGER" type="INTEGER" selected="true"/>
+                <column name="nom_financeur" tableType="VARCHAR(255)" type="STRING" selected="true"/>
+                <column name="type_contrat" tableType="VARCHAR(50)" type="STRING" selected="true"/>
+            </jdbcDatatable>
+            <jdbcDatatable fetchSize="1000" tableName="public.dim_structure" rowLimit="-1" id="85f8367f-98b8-4786-aa24-ee4d06ee3cca">
+                <column name="id_structure" tableType="INTEGER" type="INTEGER" selected="true"/>
+                <column name="nom_laboratoire" tableType="VARCHAR(255)" type="STRING" selected="true"/>
+                <column name="nom_institution" tableType="VARCHAR(255)" type="STRING" selected="true"/>
+                <column name="type_institution" tableType="VARCHAR(50)" type="STRING" selected="true"/>
+            </jdbcDatatable>
+            <jdbcDatatable fetchSize="1000" tableName="public.dim_temps" rowLimit="-1" id="754377e4-46a8-4ad1-8fa4-5dce6f45f028">
+                <column name="id_temps" tableType="INTEGER" type="INTEGER" selected="true"/>
+                <column name="date_jour" tableType="DATE" type="DATE" selected="true"/>
+                <column name="annee" tableType="INTEGER" type="INTEGER" selected="true"/>
+                <column name="trimestre" tableType="INTEGER" type="INTEGER" selected="true"/>
+                <column name="mois" tableType="INTEGER" type="INTEGER" selected="true"/>
+                <column name="mois_nom" tableType="VARCHAR(20)" type="STRING" selected="true"/>
+                <column name="semaine" tableType="INTEGER" type="INTEGER" selected="true"/>
+            </jdbcDatatable>
+            <jdbcDatatable fetchSize="1000" tableName="public.fact_financement" rowLimit="-1" id="18b46154-8d6a-42a8-b463-f7ced72af15d">
+                <column name="id_financement" tableType="INTEGER" type="INTEGER" selected="true"/>
+                <column name="fk_temps" tableType="INTEGER" type="INTEGER" selected="true"/>
+                <column name="fk_structure" tableType="INTEGER" type="INTEGER" selected="true"/>
+                <column name="fk_discipline" tableType="INTEGER" type="INTEGER" selected="true"/>
+                <column name="fk_financeur" tableType="INTEGER" type="INTEGER" selected="true"/>
+                <column name="montant_contrat" tableType="NUMERIC(15,2)" type="DOUBLE" selected="true"/>
+                <column name="duree_mois" tableType="INTEGER" type="INTEGER" selected="true"/>
+                <column name="nombre_contrats" tableType="INTEGER" type="INTEGER" selected="true"/>
+                <column name="source_contrat_id" tableType="INTEGER" type="INTEGER" selected="true"/>
+            </jdbcDatatable>
+        </jdbcDS>
+        <multiLevelDimension dynHierAllMember="All $HierarchyName" includeUsedColumn="false" dataTableId="754377e4-46a8-4ad1-8fa4-5dce6f45f028" isDefaultTimeDimension="false" isIndexingByRange="false" isTimeDimension="false" id="3f2087c0-6cf6-4e4b-ad91-93ed9ae8d30d" name="temps">
+            <multiLevelHierarchy hasAllLevel="true" allLevelName="All-Level" allMemberName="All" name="calendrier" isDefault="true" uuid="72f742f9-4430-4b92-92a6-4a8b921fea7e">
+                <factAggregationType>MEMBER_AND_ANCESTORS</factAggregationType>
+                <level uuid="c42f931f-21cd-4f1c-90a7-6397af28ee99" name="annee" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                    <column name="annee"/>
+                    <nameCol name="annee"/>
+                    <orderType>NONE</orderType>
+                </level>
+                <level uuid="726b7748-ebe2-41e1-b16b-a854328bf736" name="trimestre" ignoreNameCollision="false" nameUnique="false" nameUniqueInParent="true" keyUnique="false">
+                    <column name="trimestre"/>
+                    <nameCol name="trimestre"/>
+                    <orderType>NONE</orderType>
+                </level>
+                <level uuid="73baaceb-1077-4e35-adba-16ff18eb7662" name="mois" ignoreNameCollision="false" nameUnique="false" nameUniqueInParent="true" keyUnique="false">
+                    <column name="mois"/>
+                    <nameCol name="mois_nom"/>
+                    <orderType>NONE</orderType>
+                </level>
+                <level uuid="0a5b0c68-fb87-4a85-be7e-69afed171b9e" name="date" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="true" keyUnique="true">
+                    <column name="id_temps"/>
+                    <nameCol name="date_jour"/>
+                    <orderType>NONE</orderType>
+                </level>
+            </multiLevelHierarchy>
+        </multiLevelDimension>
+        <multiLevelDimension dynHierAllMember="All $HierarchyName" includeUsedColumn="false" dataTableId="85f8367f-98b8-4786-aa24-ee4d06ee3cca" isDefaultTimeDimension="false" isIndexingByRange="false" isTimeDimension="false" id="8243211d-9d49-457a-ae0c-abbe294edc76" name="structure">
+            <multiLevelHierarchy hasAllLevel="true" allLevelName="All-Level" allMemberName="All" name="organisation" isDefault="true" uuid="69b212df-2279-4110-8220-a572c7b0a90d">
+                <factAggregationType>MEMBER_AND_ANCESTORS</factAggregationType>
+                <level uuid="a952a1a9-c2c2-441c-ba5d-8d18ad562691" name="institution" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                    <column name="nom_institution"/>
+                    <nameCol name="nom_institution"/>
+                    <orderType>NONE</orderType>
+                </level>
+                <level uuid="a4446628-8b81-4ead-94d5-24a62008b49e" name="laboratoire" ignoreNameCollision="false" nameUnique="false" nameUniqueInParent="true" keyUnique="true">
+                    <column name="id_structure"/>
+                    <nameCol name="nom_laboratoire"/>
+                    <orderType>NONE</orderType>
+                </level>
+            </multiLevelHierarchy>
+        </multiLevelDimension>
+        <multiLevelDimension dynHierAllMember="All $HierarchyName" includeUsedColumn="false" dataTableId="f6966955-b143-42a1-8f45-86525f340eb0" isDefaultTimeDimension="false" isIndexingByRange="false" isTimeDimension="false" id="16ac0a13-d291-4147-9858-5edb4f2bbb16" name="discipline">
+            <multiLevelHierarchy hasAllLevel="true" allLevelName="All-Level" allMemberName="All" name="discipline" isDefault="true" uuid="0a48c9a1-b40d-49c7-82b0-7b56073f24b4">
+                <factAggregationType>MEMBER_AND_ANCESTORS</factAggregationType>
+                <level uuid="ba86e01b-93a5-41ca-a549-f8e308889072" name="discipline" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                    <column name="id_discipline"/>
+                    <nameCol name="libelle_discipline"/>
+                    <orderType>NONE</orderType>
+                </level>
+            </multiLevelHierarchy>
+        </multiLevelDimension>
+        <multiLevelDimension dynHierAllMember="All $HierarchyName" includeUsedColumn="false" dataTableId="af4b7710-7777-4fd1-b243-b9f1d0fc6be1" isDefaultTimeDimension="false" isIndexingByRange="false" isTimeDimension="false" id="e9fdad2d-1cad-4b91-a724-aeb66f3e0c56" name="financeur">
+            <multiLevelHierarchy hasAllLevel="true" allLevelName="All-Level" allMemberName="All" name="financeur" isDefault="true" uuid="0e67f94e-8dd7-455a-91d4-8c90b03b72cb">
+                <factAggregationType>MEMBER_AND_ANCESTORS</factAggregationType>
+                <level uuid="53fa8827-d6d9-495b-bdbd-5281b16202c3" name="type_contrat" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                    <column name="type_contrat"/>
+                    <nameCol name="type_contrat"/>
+                    <orderType>NONE</orderType>
+                </level>
+            </multiLevelHierarchy>
+        </multiLevelDimension>
+        <localization enabled="false"/>
+        <memberPropertyConsistencyCheck>ACTIVE</memberPropertyConsistencyCheck>
+        <reverseLink>false</reverseLink>
+        <script>
+            <content>-- 
+-- Drop all calc. members, sets and functions declared at schema/cube levels. 
+-- 
+
+DROP *
+
+</content>
+        </script>
+        <useFactPartitioning>false</useFactPartitioning>
+        <useUnknownMembersInFacts>true</useUnknownMembersInFacts>
+    </schemaDefinition>
+</schemaFactory>
