@@ -190,7 +190,7 @@ def main():
     docs = [gen_dataset_doc(i) for i in range(1, NB_DATASETS + 1)]
     
     # Écriture du script d'insertion MongoDB
-    with open("mongo_insert.js", "w", encoding="utf-8") as f:
+    with open("TP2/Partie3/mongo_insert.js", "w", encoding="utf-8") as f:
         f.write("db=connect(\"tp2_mongodb\");\n")
         f.write("use(\"tp2_mongodb\");\n")
         f.write("db.jeux_de_donnees.deleteMany({});\n")
